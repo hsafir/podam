@@ -1,13 +1,7 @@
 dependencies:
   override:
-    - mvn -DskipTests clean install dependency:resolve-plugins dependency:go-offline
-
+    - mvn -DskipTests clean install 
 test:
   override:
     - mvn -o surefire:test
 
-deployment:
-  main:
-    branch: master
-    commands:
-      - mvn -s .circleci.settings.xml -DskipTests deploy
