@@ -1,16 +1,13 @@
-machine:
-  #environment:
-  #  _JAVA_OPTIONS: "-Xms512m -Xmx1024m -XX:PermSize=64m -XX:MaxPermSize=256m"
-  java:
-    version: oraclejdk8
-
 dependencies:
   override:
-    - java -XX:+PrintFlagsFinal -version
-    - mvn --version 
     - mvn -DskipTests clean install dependency:resolve-plugins dependency:go-offline
-  
 
 test:
-  override: 
+  override:
     - mvn -o surefire:test
+
+deployment:
+  main:
+    branch: master
+    commands:
+      - mvn -s .circleci.settings.xml -DskipTests deploy
